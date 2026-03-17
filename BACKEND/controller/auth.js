@@ -1,6 +1,6 @@
 import User from "../models/User";
 import crypto from 'crypto'
-
+import sendOtp from '../utils/sendMail'
 
 const register = async (req, res) => {
     const { email, password } = req.body

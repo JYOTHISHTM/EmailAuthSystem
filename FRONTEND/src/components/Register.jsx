@@ -2,13 +2,14 @@
 
 import React,{useState} from 'react'
 import axios from 'axios'
-
+import {useNavigate} from 'react-router-dom'
 
 const Register = () => {
 
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const [message,setMessage]=useState('')
+    const navigate=useNavigate()
 
     const handleSubmit=async()=>{
         try{
@@ -17,6 +18,7 @@ const Register = () => {
             
             if(response.status===201){
                 setMessage(response.data.message)
+                navigate('/generate-otp',{state:{email}})
             }
         }catch(e){
             console.log('registration failed',e);

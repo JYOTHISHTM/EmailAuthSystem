@@ -1,13 +1,13 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import crypto from 'crypto'
-import sendOtp from '../utils/sendMail'
+import sendOtp from '../utils/sendMail.js'
 
 const register = async (req, res) => {
     const { email, password } = req.body
     try {
         const existUser = await User.findOne({ email })
         if (existUser) {
-            res.status(400).json({ message: 'already exist' })
+          return  res.status(400).json({ message: 'already exist' })
         }
 
         const newUser = new User({ email, password })
@@ -48,7 +48,7 @@ const verifyOtp = async (req, res) => {
     try {
         const user = await User.findOne({ email })
         if (!user) {
-            res.status(400).json({ message: 'user not found' })
+           return res.status(400).json({ message: 'user not found' })
         }
         if (user.otp !== otp || user.otpExpires < Date.now()) {
             return res.status(400).json({ message: 'invalid otp or expired' })
@@ -58,7 +58,7 @@ const verifyOtp = async (req, res) => {
         await user.save()
         res.status(200).json({ message: 'otp verified' })
     } catch (err) {
-        return res.status(500).json({ message: 'server error' })    
+        return res.status(500).json({ message: 'server error' })
     }
 }
 

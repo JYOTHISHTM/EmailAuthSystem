@@ -15,7 +15,7 @@ const sendOtp=async(email,otp)=>{
     const mailOptions={
         from:process.env.EMAIL_USER,
         to:email,
-        subject:"yout otp",
+        subject: "Your OTP",
         text:`otp is ${otp}`
     }
 

@@ -8,15 +8,15 @@ const VerifyOtp = () => {
 
     const [otp, setOtp] = useState('')
     const [message, setMessage] = useState('')
-    const location=useLocation('')
-    const email=location.state?.email
+    const location = useLocation('')
+    const email = location.state?.email
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(`http://localhost:5000/auth/verify-otp`,{email,otp})
-            if(response.status==200){
-                setMessage(response.data.message) 
+            const response = await axios.post(`http://localhost:5000/auth/verify-otp`, { email, otp })
+            if (response.status == 200) {
+                setMessage(response.data.message)
             }
         } catch (e) {
             setMessage('err', e)
@@ -28,7 +28,7 @@ const VerifyOtp = () => {
 
             <form onSubmit={handleSubmit} >
                 <label >otp</label>
-                <input type="text" value={otp} onChange={(e) => (e.target.value)} required />
+                <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required />
                 <button type="submit">verify otp</button>
 
             </form>
